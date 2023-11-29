@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\TiketController;
 use Illuminate\Http\Request;
@@ -20,5 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('tiket', [TiketController::class,'index']);
-Route::get('lokasi', [LokasiController::class,'index']);
+Route::get('about', [AboutController::class,'index']);
+Route::put('about', [AboutController::class,'update']);
+// Route::get('tiket-pesawat', [TiketController::class,'index']);
