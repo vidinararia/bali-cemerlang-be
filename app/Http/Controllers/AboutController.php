@@ -40,7 +40,7 @@ class AboutController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'id'=>'required|exists:about,id',
+            'id'=>'required|exists:abouts,id',
         ]);
 
         $post = About::findOrFail($request->input('id'));

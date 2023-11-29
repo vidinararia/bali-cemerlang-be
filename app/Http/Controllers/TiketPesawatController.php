@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tiket_pesawat;
+use App\Models\TiketPesawat;
 use Illuminate\Http\Request;
 
 class TiketPesawatController extends Controller
@@ -12,7 +12,7 @@ class TiketPesawatController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Tiket_pesawat::get();
+        $data = TiketPesawat::get();
         $sortByAsc = $request->sortByAsc;
         $allData = $data->sortBy($sortByAsc);
         $cntData = $data->count();
