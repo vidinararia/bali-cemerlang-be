@@ -41,7 +41,6 @@ class AboutController extends Controller
     {
         $request->validate([
             'id'=>'required|exists:about,id',
-            'description'=>'required|string',
         ]);
 
         $post = About::findOrFail($request->input('id'));
