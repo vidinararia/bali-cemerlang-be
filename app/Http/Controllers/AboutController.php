@@ -40,10 +40,15 @@ class AboutController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'id'=>'required|exists:abouts,id',
+            'id'=>'required',
         ]);
 
-        $post = About::findOrFail($request->input('id'));
+        $post = About::find($request->input('id'));
+        if (empty($post)) {
+            return response()->json([
+                'message'=>'Data tidak ditemukan'
+            ]);
+        }
 
         $post->update([
             'description'=>$request->input('description'),
