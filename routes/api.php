@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\TiketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('about', [AboutController::class,'index']);
 Route::put('about', [AboutController::class,'update']);
-// Route::get('tiket-pesawat', [TiketController::class,'index']);
+Route::post('offer', [OfferController::class,'store']);
+Route::get('offer', [OfferController::class,'index']);
+Route::delete('offer', [OfferController::class,'destroy']);
+Route::post('update-offer', [OfferController::class,'update']);
