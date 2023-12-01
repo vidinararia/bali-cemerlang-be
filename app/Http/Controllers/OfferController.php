@@ -12,14 +12,20 @@ class OfferController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Offer::all();
-        $cntData = $data->count();
+        $postPerPage = $request->input('total_pages', Offer::count()); // Default all data
+        $orderBy = $request->input('order_by', 'id'); // Default id order
+        $orderDirection = $request->input('order_direction', 'asc'); // Default to ascending order
+        $page = $request->input('page', 1); // Default page 1
+
+        $data = Offer::orderBy($orderBy, $orderDirection)->paginate($postPerPage, ['*'], 'page', $page);
 
         return response()->json([
-            'cnt'=>$cntData,
-            'data'=>$data
+            'cnt'=>$data->total(),
+            'data'=>$data->items(),
+            'current_page'=>$data->currentPage(),
+            'total_pages'=>$data->lastPage(),
         ], 200);
     }
 
@@ -48,7 +54,7 @@ class OfferController extends Controller
         ]);
 
         return response()->json([
-            'message'=>'Sukses Menambahkan data'
+            'message'=>'Success create data'
         ]);
     }
 
@@ -75,7 +81,7 @@ class OfferController extends Controller
         $dataOffer = Offer::find($request->input('id'));
         if (empty($dataOffer)) {
             return response()->json([
-                'message'=>'Data tidak ditemukan'
+                'message'=>'id not found'
             ], 404);
         }
 
@@ -99,7 +105,7 @@ class OfferController extends Controller
         ]);
 
         return response()->json([
-            'message'=>'Sukses Update'
+            'message'=>'Success update data'
         ]);
     }
 
@@ -115,7 +121,7 @@ class OfferController extends Controller
         $dataOffer = Offer::find($request->input('id'));
         if (empty($dataOffer)) {
             return response()->json([
-                'message'=>'Data tidak ditemukan'
+                'message'=>'id not found'
             ], 404);
         }
         
@@ -127,7 +133,7 @@ class OfferController extends Controller
         $dataOffer->delete();
 
         return response()->json([
-            'message'=>'Sukses Menghapus data'
+            'message'=>'Success delete data'
         ]);
     }
 }
