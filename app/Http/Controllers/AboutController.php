@@ -46,7 +46,7 @@ class AboutController extends Controller
         $post = About::find($request->input('id'));
         if (empty($post)) {
             return response()->json([
-                'message'=>'Data tidak ditemukan'
+                'message'=>'id not found'
             ]);
         }
 
@@ -55,7 +55,7 @@ class AboutController extends Controller
         ]);
 
         return response()->json([
-            'message'=>'Sukses Update'
+            'message'=>'Success update data'
         ]);
     }
 
