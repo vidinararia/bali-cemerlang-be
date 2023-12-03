@@ -14,7 +14,7 @@ class PackageController extends Controller
     {
         $postPerPage = $request->input('total_pages', Package::count()); // Default all data
         $orderBy = $request->input('order_by', 'id'); // Default id order
-        $orderDirection = $request->input('order_direction', 'asc'); // Default to ascending order
+        $orderDirection = $request->input('order_direction', 'desc'); // Default to descending order
         $page = $request->input('page', 1); // Default page 1
         
         $data = Package::orderBy($orderBy, $orderDirection)->paginate($postPerPage, ['*'], 'page', $page);
@@ -119,6 +119,26 @@ class PackageController extends Controller
 
         return response()->json([
             'message'=>'Success delete data'
+        ]);
+    }
+
+    public function restore(Request $request)
+    {
+        $request->validate([
+            'id'=>'required',
+        ]);
+
+        $dataPackage = Package::withTrashed()->find($request->input('id'));
+        if (empty($dataPackage)) {
+            return response()->json([
+                'message'=>'id not found'
+            ], 404);
+        }
+        
+        $dataPackage->restore();
+
+        return response()->json([
+            'message'=>'Success restore data'
         ]);
     }
 }
