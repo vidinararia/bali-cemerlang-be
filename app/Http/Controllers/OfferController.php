@@ -16,7 +16,7 @@ class OfferController extends Controller
     {
         $postPerPage = $request->input('total_pages', Offer::count()); // Default all data
         $orderBy = $request->input('order_by', 'id'); // Default id order
-        $orderDirection = $request->input('order_direction', 'asc'); // Default to ascending order
+        $orderDirection = $request->input('order_direction', 'desc'); // Default to descending order
         $page = $request->input('page', 1); // Default page 1
 
         $data = Offer::orderBy($orderBy, $orderDirection)->paginate($postPerPage, ['*'], 'page', $page);
