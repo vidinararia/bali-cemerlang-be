@@ -30,9 +30,10 @@ Route::put('about', [AboutController::class,'update']);
 Route::post('offer', [OfferController::class,'store']);
 Route::get('offer', [OfferController::class,'index']);
 Route::delete('offer', [OfferController::class,'destroy']);
-Route::post('update-offer', [OfferController::class,'update']);
+Route::post('offer/update', [OfferController::class,'update']);
 
 Route::get('package', [PackageController::class,'index']);
 Route::post('package', [PackageController::class,'store']);
 Route::delete('package', [PackageController::class,'destroy']);
 Route::put('package', [PackageController::class,'update']);
+Route::get('package/restore', [PackageController::class,'restore']);
