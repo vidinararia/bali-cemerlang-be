@@ -43,7 +43,7 @@ class OfferController extends Controller
         
         $filename="";
         if ($request->hasFile('foto_offer')) {
-            $filename=$request->file('foto_offer')->store('images','public');
+            $filename=$request->file('foto_offer')->store('images/foto_offer','public');
         }
 
         $dataOffer = Offer::create([
@@ -92,7 +92,7 @@ class OfferController extends Controller
                 File::delete($destination);
             }
 
-            $filename=$request->file('new_foto_offer')->store('images','public');
+            $filename=$request->file('new_foto_offer')->store('images/foto_offer','public');
         }else{
             $filename=$request->foto_offer;
         }
