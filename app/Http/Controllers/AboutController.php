@@ -31,7 +31,18 @@ class AboutController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = About::find($id);
+        if($data){
+            return response() -> json([
+                'status' => true,
+                'data' => $data
+            ], 200);
+        } else {
+            return response() -> json([
+                'status' => false,
+                'message' => "id not found"
+            ]);
+        }
     }
 
     /**
