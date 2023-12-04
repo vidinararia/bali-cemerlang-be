@@ -33,6 +33,7 @@ Route::get('offer', [OfferController::class,'index']);
 Route::get('offer/view/{id}', [OfferController::class,'show']);
 Route::delete('offer', [OfferController::class,'destroy']);
 Route::post('offer/update', [OfferController::class,'update']);
+Route::get('offer/restore', [OfferController::class,'restore']);
 
 Route::get('package', [PackageController::class,'index']);
 Route::get('package/view/{id}', [PackageController::class,'show']);
