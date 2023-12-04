@@ -136,15 +136,35 @@ class OfferController extends Controller
             ], 404);
         }
         
-        $destination=public_path("storage\\".$dataOffer->foto_offer);
-        if(File::exists($destination)){
-            File::delete($destination);
-        }
+        // $destination=public_path("storage\\".$dataOffer->foto_offer);
+        // if(File::exists($destination)){
+        //     File::delete($destination);
+        // }
 
         $dataOffer->delete();
 
         return response()->json([
             'message'=>'Success delete data'
+        ]);
+    }
+
+    public function restore(Request $request)
+    {
+        $request->validate([
+            'id'=>'required',
+        ]);
+
+        $dataPackage = Offer::withTrashed()->find($request->input('id'));
+        if (empty($dataPackage)) {
+            return response()->json([
+                'message'=>'id not found'
+            ], 404);
+        }
+        
+        $dataPackage->restore();
+
+        return response()->json([
+            'message'=>'Success restore data'
         ]);
     }
 }
