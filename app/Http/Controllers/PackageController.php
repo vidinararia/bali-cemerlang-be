@@ -16,8 +16,16 @@ class PackageController extends Controller
         $orderBy = $request->input('order_by', 'id'); // Default id order
         $orderDirection = $request->input('order_direction', 'desc'); // Default to descending order
         $page = $request->input('page', 1); // Default page 1
+        $search = $request->input('search');
         
-        $data = Package::orderBy($orderBy, $orderDirection)->paginate($postPerPage, ['*'], 'page', $page);
+        $data = Package::where('nama_paket','like',"%$search%")
+        ->orWhere('destinasi','like',"%$search%")
+        ->orWhere('tanggal','like',"%$search%")
+        ->orWhere('jam_keberangkatan','like',"%$search%")
+        ->orWhere('harga','like',"%$search%")
+        ->orWhere('benefit','like',"%$search%")
+        ->orderBy($orderBy, $orderDirection)
+        ->paginate($postPerPage, ['*'], 'page', $page);
         
         return response()->json([
             'cnt'=>$data->total(),
