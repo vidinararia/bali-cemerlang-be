@@ -121,13 +121,9 @@ class PackageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(string $id)
     {
-        $request->validate([
-            'id'=>'required',
-        ]);
-
-        $dataPackage = Package::find($request->input('id'));
+        $dataPackage = Package::find($id);
         if (empty($dataPackage)) {
             return response()->json([
                 'message'=>'id not found'
@@ -141,13 +137,9 @@ class PackageController extends Controller
         ]);
     }
 
-    public function restore(Request $request)
+    public function restore(string $id)
     {
-        $request->validate([
-            'id'=>'required',
-        ]);
-
-        $dataPackage = Package::withTrashed()->find($request->input('id'));
+        $dataPackage = Package::withTrashed()->find($id);
         if (empty($dataPackage)) {
             return response()->json([
                 'message'=>'id not found'
