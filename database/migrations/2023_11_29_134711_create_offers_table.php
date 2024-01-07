@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('jenis_offer');
             $table->string('foto_offer');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
