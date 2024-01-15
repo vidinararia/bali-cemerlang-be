@@ -7,6 +7,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PromoController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,48 +26,54 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::post('logout', 'logout');
+});
+
 Route::controller(AboutController::class)->prefix('about')->group(function () {
     Route::get('', 'index');
-    Route::get('view/{id}', 'show');
-    Route::put('', 'update');
+    Route::get('view/{id}', 'show')->middleware([Authenticate::class]);
+    Route::put('', 'update')->middleware([Authenticate::class]);
 });
 
 Route::controller(OfferController::class)->prefix('offer')->group(function () {
-    Route::post('', 'store');
     Route::get('', 'index');
-    Route::get('view/{id}', 'show');
-    Route::delete('{id}', 'destroy');
-    Route::post('update', 'update');
+    Route::post('', 'store')->middleware([Authenticate::class]);
+    Route::get('view/{id}', 'show')->middleware([Authenticate::class]);
+    Route::delete('{id}', 'destroy')->middleware([Authenticate::class]);
+    Route::post('update', 'update')->middleware([Authenticate::class]);
 });
 
 Route::controller(GalleryController::class)->prefix('gallery')->group(function () {
-    Route::post('', 'store');
     Route::get('', 'index');
-    Route::get('view/{id}', 'show');
-    Route::delete('{id}', 'destroy');
+    Route::post('', 'store')->middleware([Authenticate::class]);
+    Route::get('view/{id}', 'show')->middleware([Authenticate::class]);
+    Route::delete('{id}', 'destroy')->middleware([Authenticate::class]);
 });
 
 Route::controller(PromoController::class)->prefix('promo')->group(function () {
-    Route::post('', 'store');
     Route::get('', 'index');
-    Route::get('view/{id}', 'show');
-    Route::delete('{id}', 'destroy');
-    Route::post('update', 'update');
+    Route::post('', 'store')->middleware([Authenticate::class]);
+    Route::get('view/{id}', 'show')->middleware([Authenticate::class]);
+    Route::delete('{id}', 'destroy')->middleware([Authenticate::class]);
+    Route::post('update', 'update')->middleware([Authenticate::class]);
 });
 
 Route::controller(NewsController::class)->prefix('news')->group(function () {
-    Route::post('', 'store');
     Route::get('', 'index');
-    Route::get('view/{id}', 'show');
-    Route::delete('{id}', 'destroy');
-    Route::post('update', 'update');
+    Route::post('', 'store')->middleware([Authenticate::class]);
+    Route::get('view/{id}', 'show')->middleware([Authenticate::class]);
+    Route::delete('{id}', 'destroy')->middleware([Authenticate::class]);
+    Route::post('update', 'update')->middleware([Authenticate::class]);
 });
 
 Route::controller(PackageController::class)->prefix('package')->group(function () {
     Route::get('', 'index');
-    Route::get('view/{id}', 'show');
-    Route::post('', 'store');
-    Route::delete('{id}', 'destroy');
-    Route::put('', 'update');
-    Route::get('restore/{id}', 'restore');
+    Route::get('view/{id}', 'show')->middleware([Authenticate::class]);
+    Route::post('', 'store')->middleware([Authenticate::class]);
+    Route::delete('{id}', 'destroy')->middleware([Authenticate::class]);
+    Route::put('', 'update')->middleware([Authenticate::class]);
+    Route::get('restore/{id}', 'restore')->middleware([Authenticate::class]);
 });
